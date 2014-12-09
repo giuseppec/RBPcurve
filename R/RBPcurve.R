@@ -1,9 +1,14 @@
-##' Function plots RBP curve
+##' Function computes x and y Axis for RBP plot
 ##'
-##' The function is an improved version of \code{\link[PredictABEL]{plotPredictivenessCurve}} and 
-##' creates a plot of cumulative percentage of individuals to the predicted risks. 
-##' See \code{\link[PredictABEL]{plotPredictivenessCurve}} for details on usage and arguments.
+##' Function computes x and y Axis for RBP plot
 ##'
+##' @usage computeAxis(pred, y)
+##'               
+##' @param pred predicted probabilities
+##' @param y response
+##'
+##' @author Giuseppe Casalicchio
+##' 
 
 computeAxis <- function(pred, y){
   if (is.factor(y)) {
@@ -15,6 +20,31 @@ computeAxis <- function(pred, y){
   x <- (1:n)/n
   return(list("x"=x, "y"=yAxis))
 }
+
+##' RBP plot
+##'
+##' Plot for Residual-Based Predictiveness Curve
+##'
+##' @usage RBPcurve(pred, y, main="RBP Curve", 
+##'                 xlab="Cumulative Percentage", ylab="Estimated Residuals", 
+##'                 type="l", ylim=c(-1,1), conditionalAxis=FALSE, 
+##'                 title.line=ifelse(conditionalAxis, 3, 2), add=FALSE, ...) 
+##'               
+##' @param pred predicted probabilities
+##' @param y response
+##' @param main plot title
+##' @param xlab label for x-axis
+##' @param ylab label for y-axis
+##' @param type plot type 
+##' @param ylim limits for y-axis
+##' @param conditionalAxis wether an additional axis should be plotted reflecting residuals conditional on y
+##' @param title.line where to plot the title
+##' @param add wether RBP plot should be added to current plot
+##' @param ... passed to plot or lines (depending on add)
+##'
+##' @author Giuseppe Casalicchio
+##' 
+##' @export 
 
 RBPcurve <- function (pred, y, 
                       main="RBP Curve", 
@@ -61,7 +91,22 @@ RBPcurve <- function (pred, y,
   invisible(as.data.frame(xyAxis))
 }
 
-addPrevalence <- function(pred, y, col="gray", value=TRUE, 
+##' Prevalence
+##'
+##' Adds Prevalence on RBP curve
+##'
+##' @usage addPrevalence(pred, y, col="gray", plot.values=TRUE, ...)
+##'               
+##' @param pred predicted probabilities
+##' @param y response
+##' @param col color
+##' @param plot.values wether the value should be plotted
+##' @param ... passed to abline
+##'
+##' @author Giuseppe Casalicchio
+##' 
+##' @export 
+addPrevalence <- function(pred, y, col="gray", plot.values=TRUE, 
                           ...){
   xyAxis <- computeAxis(pred, y)
   
@@ -74,14 +119,28 @@ addPrevalence <- function(pred, y, col="gray", value=TRUE,
   prev1m <- interpol$x[which.min(abs(interpol$y))]
   
   abline(v=prev1m, col=col, ...)
-  if(value)
+  if(plot.values)
     axis(1, at=prev1m, 
-         label=bquote(paste(hat(theta),"=", .(round(mean(pred),4)))), 
+         labels=bquote(paste(hat(theta),"=", .(round(mean(pred),4)))), 
          padj=-3, hadj=0, col=col, col.axis=col)
   return(mean(pred))
 }
 
-addPEV <- function(pred, y, xAxis = seq(0,1, by=0.2), ...){
+##' PEV
+##'
+##' Highlights Area that is used to compute the PEV
+##'
+##' @usage addPEV(pred, y, plot.values=TRUE, ...)
+##'               
+##' @param pred predicted probabilities
+##' @param y response
+##' @param plot.values wether the value should be plotted
+##' @param ... passed to abline
+##'
+##' @author Giuseppe Casalicchio
+##' 
+##' @export 
+addPEV <- function(pred, y, plot.values=TRUE, ...){
   if (is.factor(y)) {
     y <- as.numeric(y)-1
   }
@@ -93,30 +152,52 @@ addPEV <- function(pred, y, xAxis = seq(0,1, by=0.2), ...){
   
   abline(v=prev, col="gray50")
   abline(h=0, col="gray50")
-
-  #mtext(expression(paste(hat(F)[epsilon], "(", hat(epsilon), "|D=0)")), 
-  #      side = 1, line = 2,  at=(prev)/2, col="gray50", cex=allcex)
-  #mtext(expression(paste(hat(F)[epsilon], "(", hat(epsilon), "|D=1)")), 
-  #      side = 3, line = 1.5,  at=(prev)+(mean(y))/2, col="gray50", cex=allcex)
+  
+  #   mtext(expression(paste(hat(F)[epsilon], "(", hat(epsilon), "|D=0)")), 
+  #        side = 1, line = 2,  at=(prev)/2, col="gray50", cex=allcex)
+  #   mtext(expression(paste(hat(F)[epsilon], "(", hat(epsilon), "|D=1)")), 
+  #        side = 3, line = 1.5,  at=(prev)+(mean(y))/2, col="gray50", cex=allcex)
   
   polygon(c(x0[x0>=prev], x0[x0>=prev][1]), 
           c(c(y1[x0>=prev][-length(y1[x0>=prev])],1), 1),  border=NA,
           col = rgb(0, 0, 0, 0.25)) 
-
+  
   
   polygon(c(x0[1], x0[x0<prev], x0[length(x0[x0<prev])+1]), 
           c(0, y1[x0<prev], 0),  border=NA, col = rgb(0, 0, 0, 0.25)) 
   
-  E1 <- mean(pred[y==1])
   E0 <- mean(pred[y==0])
-#   text(x0[length(x0[x0<prev])+1], 0.5, labels=bquote(paste(hat(E)[1], "=", .(E1))), pos=4, col="gray30")
-#   text(0.01, 0, labels=bquote(paste(hat(E)[0], "=", .(E0))), col="gray30", adj=c(0,1))
+  E1 <- mean(pred[y==1])
+  
+  if(plot.values){
+    text(min(x0), 0, col="gray30", adj=c(0,1),
+         labels=bquote(paste(hat(E)[0], "=", .(round(E0,4)))))
+    
+    text(x0[length(x0[x0<prev])+1], 1, adj=c(0,1), col="gray30",
+         labels=bquote(paste(hat(E)[1], "=", .(round(E1,4)))))
+  }
+
   return(list(E0=E0, E1=E1, PEV=E1-E0))
 }
 
+##' TPR and FPR
+##'
+##' Adds TPR and FPR on RBP curve
+##'
+##' @usage addRates(pred, y, plot.values=TRUE, ...)
+##'               
+##' @param pred predicted probabilities
+##' @param y response
+##' @param plot.values wether the value should be plotted
+##' @param ... currently not used
+##'
+##' @author Giuseppe Casalicchio
+##' 
+##' @export 
+##' @import shape
 # TODO: for different thresholds "t"
-addRates <- function(pred, y, ...){
-  require(shape)
+addRates <- function(pred, y, plot.values=TRUE, ...){
+  #require(shape)
   if (is.factor(y)) {
     y <- as.numeric(y)-1
   }
@@ -145,9 +226,25 @@ addRates <- function(pred, y, ...){
             par()$usr[3], angle = 270, 
             arr.length=0.2, arr.col="black", lcol="black")
   
+  return(list(FPR=FPR, TPR=TPR))
+  
 }
 
-addGoodCalib <- function(pred, y, value=TRUE, ...){
+##' Good Calibration
+##'
+##' Displays integrals that refer to good calibration
+##'
+##' @usage addGoodCalib(pred, y, plot.values=TRUE, ...)
+##'               
+##' @param pred predicted probabilities
+##' @param y response
+##' @param plot.values wether the value should be plotted
+##' @param ... currently not used
+##'
+##' @author Giuseppe Casalicchio
+##' 
+##' @export 
+addGoodCalib <- function(pred, y, plot.values=TRUE, ...){
   if (is.factor(y)) {
     y <- as.numeric(y)-1
   }
@@ -158,7 +255,7 @@ addGoodCalib <- function(pred, y, value=TRUE, ...){
   polygon(c(min(x0), x0, max(x0)), c(0, y1, 0),  border=NA,
           col = rgb(0, 0, 0, 0.25)) 
   
-  if(value){
+  if(plot.values){
     text(x0[1], 0,  adj = c(0,0),#pos=3,
          labels=round(sum(xyAxis$y[y==0])/length(xyAxis$y), 4))
     text(x0[length(x0)], 0, adj = c(1,1),
@@ -168,7 +265,23 @@ addGoodCalib <- function(pred, y, value=TRUE, ...){
               "Y=1"=sum(xyAxis$y[y==1])/length(xyAxis$y)))
 }
 
-addWellCalib <- function(pred, y, ...){
+##' TPR and FPR
+##'
+##' Adds TPR and FPR on RBP curve
+##'
+##' @usage addWellCalib(pred, y, plot.values=TRUE, ...)
+##'               
+##' @param pred predicted probabilities
+##' @param y response
+##' @param plot.values wether the value should be plotted
+##' @param ... currently not used
+##'
+##' @author Giuseppe Casalicchio
+##' 
+##' @export 
+##' @import TeachingDemos
+addWellCalib <- function(pred, y, plot.values=TRUE, ...){
+  #require(TeachingDemos)
   if (is.factor(y)) {
     y <- as.numeric(y)-1
   }
@@ -215,15 +328,17 @@ addWellCalib <- function(pred, y, ...){
     
   }
   quantiles <- gsub(" ", ", ", do.call("paste", data.frame(quant[1:10], quant[2:11])))
-
+  
   message("fewer than two observations in qantile: ", 
           paste("[", quantiles[ind],"]", sep="", collapse=", "))
   
-  subplot(fun={barplot(rbind(pos,abs(neg)), beside=T, col=rep(color, each=2), 
-                       cex.axis=1, main="Area", las=2)}, 
-          x=c(0.125,0.5),
-          y=c(0.4,0.9),
-          pars=list(mar=c(0,0,1,0)+0.1) )
+  if(plot.values){
+    subplot(fun={barplot(rbind(pos,abs(neg)), beside=T, col=rep(color, each=2), 
+                         cex.axis=1, main="Area", las=2)}, 
+            x=c(0.125,0.5),
+            y=c(0.4,0.9),
+            pars=list(mar=c(0,0,1,0)+0.1) )
+  }
   
   row.names(areas) <- paste("[", quantiles,"]", sep="")
   colnames(areas) <- c("Y=1", "Y=0")
