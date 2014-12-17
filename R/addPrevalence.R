@@ -1,22 +1,38 @@
 #' @title Add prevalence to RBP curve.
 #'
+#' @description The prevalence is the proportion of a population having a specific condition.
+#' In binary classification, the condition refers to whether the target variable has the value 
+#' \code{1}, that is, whether the target variable corresponds to the positive class.
+#'
 #' @template arg_obj
-#' @param col color
 #' @template arg_plotvalues
-#' @param ... passed to abline
+#' @template arg_col
+#' @param ... currently not used
+#' 
 #' @template ret_invnull
+#' 
+#' @import shape
 #' @export
-addPrevalence = function(obj, col = "gray", plot.values = TRUE, ...) {
+addPrevalence = function(obj, plot.values = TRUE, col="gray",  ...) {
   assertClass(obj, "RBPObj")
-  assertFlag(plot.values)
 
-  # interpolated 1-pervalence for plotting purposes
-  prev1m = obj$interpol$x[which.min(abs(obj$interpol$y))]
+  # Compute 1-prevalence
+  oneMinusPrev <- obj$oneMinusPrev
 
-  abline(v = prev1m, col = col, ...)
+  # Plot vertical lines where the distance between the lines reflects the prevalence
+  abline(v=c(oneMinusPrev, 1), col = "gray")
+  Arrows(x0=oneMinusPrev, x1=1, arr.col=col, col=col, lcol=col,
+         y0=-1, y1=-1, code=3, arr.adj=1)
+  
+  # Should the value of the prevalence be plotted into the current plot?
   if (plot.values) {
-    axis(1, at = prev1m, labels = bquote(paste(hat(theta)," = ", .(round(mean(obj$pred),4)))),
-      padj = -3, hadj = 0, col = col, col.axis = col)
+    text(1-(mean(obj$y)/2), -1, col=col,
+         bquote(paste(hat(theta), "=", .(obj$prevalence))), pos=3)
   }
+  
+  # Print message
+  message("Prevalence: ", obj$prevalence)
+  
+  return(invisible(NULL))
 }
 

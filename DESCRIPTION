@@ -12,4 +12,5 @@ Imports:
     checkmate
 Depends:
     TeachingDemos,
-    shape
+    shape,
+    BBmisc
