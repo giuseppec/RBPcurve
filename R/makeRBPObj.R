@@ -18,6 +18,7 @@
 #'  Only present when \code{y} is a "factor".
 #' 
 #' @export
+#' @import BBmisc
 #' @aliases RBPObj
 makeRBPObj = function(pred, y, positive = NULL) {
   # check and convert arguments

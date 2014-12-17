@@ -4,7 +4,8 @@
 #' assessed by the RBP curve
 #'
 #' @template arg_obj
-#' @template arg_plotues
+#' @template arg_plotvalues
+#' @template arg_col
 #' @param t Threshold for computing the true positve and false positive rate. 
 #' Default is the prevalence.
 #' @param ... currently not used

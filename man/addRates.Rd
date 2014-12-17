@@ -3,19 +3,26 @@
 \alias{addRates}
 \title{Add tpr and fpr on RBP curve.}
 \usage{
-addRates(obj, plot.values = TRUE, ...)
+addRates(obj, plot.values = TRUE, t = obj$prevalence, col = "gray", ...)
 }
 \arguments{
 \item{obj}{[\code{\link{RBPObj}}]\cr
 Data container for RBP curve.}
 
 \item{plot.values}{[\code{logical(1)}]\cr
-Should values be added to plot?
+Whether values for the corresponding measure should be added to the plot?
 Default is \code{FALSE}.}
+
+\item{t}{Threshold for computing the true positve and false positive rate.
+Default is the prevalence.}
+
+\item{col}{[\code{character}(1) | \code{numeric}(1) ]\cr
+A specification for the plotting color.}
 
 \item{...}{currently not used}
 }
 \description{
-Add tpr and fpr on RBP curve.
+The true positive rate (tpr) and the false positive rate (fpr) can be visually
+assessed by the RBP curve
 }
 

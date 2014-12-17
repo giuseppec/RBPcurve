@@ -10,7 +10,7 @@ addPEV(obj, plot.values = TRUE, ...)
 Data container for RBP curve.}
 
 \item{plot.values}{[\code{logical(1)}]\cr
-Should values be added to plot?
+Whether values for the corresponding measure should be added to the plot?
 Default is \code{FALSE}.}
 
 \item{...}{passed to abline}

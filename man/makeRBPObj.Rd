@@ -6,7 +6,20 @@
 \usage{
 makeRBPObj(pred, y, positive = NULL)
 }
+\arguments{
+\item{pred}{[\code{numeric}]\cr
+Predicted probabilities for each observation.}
+
+\item{y}{[\code{numeric} | \code{factor}]\cr
+Class labels of the target variable.
+Either a numeric vector with values \code{0} or \code{1}, or a factor with two levels.}
+
+\item{positive}{[\code{character}(1)]\cr
+ Set positive class label for target variable which is transformed as \code{1} to compute.
+ Only present when \code{y} is a "factor".}
+}
 \description{
-Must be created for all subsequent plot function calls.
+Must be created for all subsequent plot function calls. \cr
+Object members:
 }
 

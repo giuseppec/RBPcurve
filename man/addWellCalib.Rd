@@ -3,15 +3,22 @@
 \alias{addWellCalib}
 \title{Add TPR and FPR on RBP curve.}
 \usage{
-addWellCalib(obj, plot.values = TRUE)
+addWellCalib(obj, plot.values = TRUE, col = rgb(0, 0, 0, seq(0.1, 0.9,
+  length = 10)))
 }
 \arguments{
 \item{obj}{[\code{\link{RBPObj}}]\cr
 Data container for RBP curve.}
 
 \item{plot.values}{[\code{logical(1)}]\cr
-Should values be added to plot?
+Whether values for the corresponding measure should be added to the plot?
 Default is \code{FALSE}.}
+
+\item{col}{[\code{character}(1) | \code{numeric}(1) ]\cr
+A specification for the plotting color.}
+}
+\value{
+A matrix.
 }
 \description{
 Add TPR and FPR on RBP curve.

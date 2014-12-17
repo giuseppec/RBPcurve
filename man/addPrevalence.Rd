@@ -3,24 +3,27 @@
 \alias{addPrevalence}
 \title{Add prevalence to RBP curve.}
 \usage{
-addPrevalence(obj, col = "gray", plot.values = TRUE, ...)
+addPrevalence(obj, plot.values = TRUE, col = "gray", ...)
 }
 \arguments{
 \item{obj}{[\code{\link{RBPObj}}]\cr
 Data container for RBP curve.}
 
-\item{col}{color}
-
 \item{plot.values}{[\code{logical(1)}]\cr
-Should values be added to plot?
+Whether values for the corresponding measure should be added to the plot?
 Default is \code{FALSE}.}
 
-\item{...}{passed to abline}
+\item{col}{[\code{character}(1) | \code{numeric}(1) ]\cr
+A specification for the plotting color.}
+
+\item{...}{currently not used}
 }
 \value{
 [\code{invisible(NULL)}].
 }
 \description{
-Add prevalence to RBP curve.
+The prevalence is the proportion of a population having a specific condition.
+In binary classification, the condition refers to whether the target variable has the value
+\code{1}, that is, whether the target variable corresponds to the positive class.
 }
 
