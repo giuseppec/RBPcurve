@@ -6,7 +6,7 @@
 #'
 #' @template arg_obj
 #' @template arg_plotvalues
-#' @param col [\code{character}(10) | \code{numeric}(10) ]\cr
+#' @param col [\code{character(10)} | \code{numeric(10)} ]\cr
 #' A specification for the the plotting color for the areas. 
 #' @param ... currently not used
 #' 
