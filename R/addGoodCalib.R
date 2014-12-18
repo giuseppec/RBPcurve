@@ -22,26 +22,26 @@ addGoodCalib = function(obj,
   # Check arguments
   assertClass(obj, "RBPObj")
   assertFlag(plot.values)
-  assertVector(col, len=1)
+  assertVector(col, len = 1L)
   
   # Store values of obj
   x0 = obj$axis.x
   y1 = obj$axis.y
 
   # Highlights the integral below the RBP curve
-  polygon(c(min(x0), x0, max(x0)), c(0, y1, 0), col=col, border=border, ...)
+  polygon(c(min(x0), x0, max(x0)), c(0, y1, 0), col = col, border = border, ...)
 
   # Should the values of the integral below and above the RBP curve be plotted into the current plot?
   if (plot.values) {
-    text(x0[sum(obj$y == 0)], 0, adj = c(1,0), 
-         labels = round(sum(obj$axis.y[obj$y == 0]) / obj$n, 4))
-    text(x0[sum(obj$y == 0)+1], 0, adj = c(0,1),
-         labels =round(sum(obj$axis.y[obj$y == 1]) / obj$n, 4))
+    text(x0[sum(obj$y == 0)], 0, adj = 1:0, 
+      labels = round(sum(obj$axis.y[obj$y == 0]) / obj$n, 4L))
+    text(x0[sum(obj$y == 0)+1], 0, adj = 0:1,
+      labels =round(sum(obj$axis.y[obj$y == 1]) / obj$n, 4L))
   }
   
   # Show message
-  message("Integral below the RBP curve: ", round(sum(obj$axis.y[obj$y == 0]) / obj$n, 4))
-  message("Integral above the RBP curve: ", round(sum(obj$axis.y[obj$y == 1]) / obj$n, 4))
+  message("Integral below the RBP curve: ", round(sum(obj$axis.y[obj$y == 0]) / obj$n, 4L))
+  message("Integral above the RBP curve: ", round(sum(obj$axis.y[obj$y == 1]) / obj$n, 4L))
   
   return(invisible(NULL))
 }

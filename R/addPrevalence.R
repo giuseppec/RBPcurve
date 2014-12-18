@@ -21,13 +21,13 @@ addPrevalence = function(obj, plot.values = TRUE, col = "grey", ...) {
 
   # Plot vertical lines where the distance between the lines reflects the prevalence
   abline(v = c(oneMinusPrev, 1), col = col)
-  Arrows(x0 = oneMinusPrev, x1 = 1, arr.col = col, col = col, lcol = col,
-         y0 = -1, y1 = -1, code = 3, arr.adj = 1)
+  Arrows(x0 = oneMinusPrev, x1 = 1L, arr.col = col, col = col, lcol = col,
+    y0 = -1L, y1 = -1L, code = 3L, arr.adj = 1L)
   
   # Should the value of the prevalence be plotted into the current plot?
   if (plot.values) {
-    text(1-(mean(obj$y)/2), -1, col = col,
-         bquote(paste(hat(theta), " = ", .(obj$prevalence))), pos = 3)
+    text(1 - (mean(obj$y) / 2), -1L, col = col,
+      bquote(paste(hat(theta), " = ", .(obj$prevalence))), pos = 3L)
   }
   
   # Print message

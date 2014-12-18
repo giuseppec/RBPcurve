@@ -3,7 +3,7 @@
 \alias{addWellCalib}
 \title{Visualizes a measure for well calibration on the RBP curve.}
 \usage{
-addWellCalib(obj, plot.values = TRUE, col = greycol(10), ...)
+addWellCalib(obj, plot.values = TRUE, col = greycol(10L), ...)
 }
 \arguments{
 \item{obj}{[\code{\link{RBPObj}}]\cr
@@ -13,7 +13,7 @@ Data container for RBP curve.}
 Whether the values of the corresponding measure should be added to the plot?
 Default is \code{FALSE}.}
 
-\item{col}{[\code{character}(10) | \code{numeric}(10) ]\cr
+\item{col}{[\code{character(10)} | \code{numeric(10)} ]\cr
 A specification for the the plotting color for the areas.}
 
 \item{...}{currently not used}

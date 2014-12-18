@@ -39,29 +39,26 @@ plotRBPcurve = function (obj,
   assertString(ylab)
   assertFlag(add)
 
-  # plot or add
+  # plot or add RBP curve
   if (add) {
     lines(x = obj$axis.x, y = obj$axis.y, ...)
   } else {
     plot(x = obj$axis.x, y = obj$axis.y,
       xlab = xlab, ylab = ylab, ylim = ylim,
-      main = "", type = type, yaxt="n", ...)
-    axis(2, las=2)
-    abline(h = 0, col = "grey")
+      main = "", type = type, yaxt = "n", ...)
+    axis(2, las = 2L)
+    abline(h = 0L, col = "grey")
   }
 
-  #interpol = obj$interpol
-  #prev1m = obj$vertical.line #interpol$x[which.min(abs(interpol$y))]
+  # add conditional axis
   oneMinusPrev = obj$oneMinusPrev
-  xAxis = seq(0,1, by = 0.2)
-
+  xAxis = seq(0, 1, by = 0.2)
   if (cond.axis) {
     abline(v = oneMinusPrev, col = "grey")
-    axis(side = 1, at = xAxis*oneMinusPrev, labels = xAxis, 
-         padj=-0.5, hadj=0.75, pos=par()$usr[4])
-      
-    axis(side = 3, at = oneMinusPrev+xAxis*(1-oneMinusPrev),
-         padj=0.5, hadj=0.25, labels = xAxis)
+    axis(side = 1L, at = xAxis*oneMinusPrev, labels = xAxis, 
+      padj = -0.5, hadj = 0.75, pos = par()$usr[4])
+    axis(side = 3L, at = oneMinusPrev + xAxis*(1 - oneMinusPrev),
+      padj = 0.5, hadj = 0.25, labels = xAxis)
   }
 
   title(main, line = title.line)

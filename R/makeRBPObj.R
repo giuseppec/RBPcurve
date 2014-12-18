@@ -47,7 +47,7 @@ makeRBPObj = function(pred, y, positive = NULL) {
     } else assertSubset(positive, levels(y))
     y = as.numeric(y == positive)
   } else {
-    assertSubset(y, c(0,1))
+    assertSubset(y, c(0, 1))
     if (!is.null(positive)) assertNull(positive)
   }
   
@@ -73,19 +73,19 @@ makeRBPObj = function(pred, y, positive = NULL) {
   #vertical.line = interpol$x[which.min(abs(interpol$y))}]
   
   makeS3Obj("RBPObj",
-            n = n,
-            pred = pred,
-            y = y,
-            positive = positive,
-            e0 = e0,
-            e1 = e1,
-            pev = e1 - e0,
-            tpr = tpr,
-            fpr = fpr,
-            prevalence = prevalence,
-            oneMinusPrev = 1 - prevalence,
-            axis.x = axis.x,
-            axis.y = axis.y
+    n = n,
+    pred = pred,
+    y = y,
+    positive = positive,
+    e0 = e0,
+    e1 = e1,
+    pev = e1 - e0,
+    tpr = tpr,
+    fpr = fpr,
+    prevalence = prevalence,
+    oneMinusPrev = 1 - prevalence,
+    axis.x = axis.x,
+    axis.y = axis.y
   )
 }
 

@@ -13,10 +13,10 @@ Data container for RBP curve.}
 Whether the values of the corresponding measure should be added to the plot?
 Default is \code{FALSE}.}
 
-\item{text.col}{[\code{character}(1) | \code{numeric}(1) ]\cr
+\item{text.col}{[\code{character(1)} | \code{numeric(1)}]\cr
 A specification for the text color to be plotted when \code{plot.values = TRUE}.}
 
-\item{col}{[\code{character}(1) | \code{numeric}(1) ]\cr
+\item{col}{[\code{character(1)} | \code{numeric(1)}]\cr
 A specification for the plotting color.}
 
 \item{...}{currently not used}
