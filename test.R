@@ -17,10 +17,7 @@ addPrevalence(obj)
 addGoodCalib(obj)
 addRates(obj)
 addPEV(obj)
-addWellCalib(obj)
+(mat <- addWellCalib(obj))
 
-#
-# RBPcurve(pred, y, conditionalAxis = T)
-# addPEV(pred,y)
 
 

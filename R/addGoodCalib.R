@@ -1,4 +1,4 @@
-#' @title Displays the integral of the RBP curve.
+#' @title Visualizes a measure for good calibration on the RBP curve.
 #'
 #' @description The integral of the RBP curve is a measure for good calibration.
 #' If the sum of the two integrals (below and above the RBP curve) is close to 0, 
@@ -6,18 +6,25 @@
 #' 
 #' @template arg_obj
 #' @template arg_plotvalues
-#' @param col the color for filling the polygon, as in \code{\link{polygon}}.
+#' @param col the color for filling the polygon, as in \code{\link{polygon}}. Default is \code{col="grey"}.
 #' @param border the color to draw the border, as in \code{\link{polygon}}. 
 #' Default is \code{NA} to omit borders.
 #' @param ... passed to \code{\link{polygon}}.
 #' 
 #' @template ret_invnull
 #' @export
-addGoodCalib = function(obj, plot.values = TRUE, 
-  col=rgb(0,0,0,0.25), border=NA, ...) {
+addGoodCalib = function(obj, 
+  plot.values = TRUE, 
+  col = "grey", 
+  border = NA, 
+  ...) {
+  
+  # Check arguments
   assertClass(obj, "RBPObj")
   assertFlag(plot.values)
-
+  assertVector(col, len=1)
+  
+  # Store values of obj
   x0 = obj$axis.x
   y1 = obj$axis.y
 
@@ -31,7 +38,8 @@ addGoodCalib = function(obj, plot.values = TRUE,
     text(x0[sum(obj$y == 0)+1], 0, adj = c(0,1),
          labels =round(sum(obj$axis.y[obj$y == 1]) / obj$n, 4))
   }
-  # Print message
+  
+  # Show message
   message("Integral below the RBP curve: ", round(sum(obj$axis.y[obj$y == 0]) / obj$n, 4))
   message("Integral above the RBP curve: ", round(sum(obj$axis.y[obj$y == 1]) / obj$n, 4))
   

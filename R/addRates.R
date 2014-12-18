@@ -1,20 +1,20 @@
-#' @title Add tpr and fpr on RBP curve.
+#' @title Visualizes the TPR and FPR on the RBP curve.
 #'
-#' @description The true positive rate (tpr) and the false positive rate (fpr) can be visually
-#' assessed by the RBP curve
+#' @description For a given threshold \code{t}, the true positive rate (TPR) and the false positive 
+#' rate (FPR) can be visually assessed by the RBP curve by the intersection of the RBP curve with 
+#' the horizontal lines at \code{-t} and \code{1-t}, respectively.
 #'
 #' @template arg_obj
 #' @template arg_plotvalues
 #' @template arg_col
-#' @param t Threshold for computing the true positve and false positive rate. 
-#' Default is the prevalence.
+#' @param t Threshold that is used to compute the true positve and false positive rate. 
 #' @param ... currently not used
 #' 
 #' @import shape
 #' @export
 
 addRates = function(obj, plot.values = TRUE, 
-  t = obj$prevalence, col="gray", ...) {
+  t = obj$prevalence, col="grey", ...) {
   
   assertClass(obj, "RBPObj")
   assertFlag(plot.values)
@@ -47,7 +47,7 @@ addRates = function(obj, plot.values = TRUE,
             y0=par()$usr[4], angle = 90, arr.adj = 1, arr.lwd = 1, 
             arr.length=0.2, arr.col=col, lcol=col)
 
-  # Display values for FPR and TPR
+  # Add values for FPR and TPR into the plot
   if (plot.values) {
     text(x=(oneMinusPrev+tpr*prev), 
          y=par()$usr[4], 

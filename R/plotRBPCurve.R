@@ -1,4 +1,4 @@
-#' @title Plot residual-based predictiveness curve.
+#' @title Plot residual-based predictiveness (RBP) curve.
 #'
 #' @template arg_obj
 #' @param main An overall title for the plot.
@@ -47,7 +47,7 @@ plotRBPcurve = function (obj,
       xlab = xlab, ylab = ylab, ylim = ylim,
       main = "", type = type, yaxt="n", ...)
     axis(2, las=2)
-    abline(h = 0, col = "gray")
+    abline(h = 0, col = "grey")
   }
 
   #interpol = obj$interpol
@@ -56,7 +56,7 @@ plotRBPcurve = function (obj,
   xAxis = seq(0,1, by = 0.2)
 
   if (cond.axis) {
-    abline(v = oneMinusPrev, col = "gray")
+    abline(v = oneMinusPrev, col = "grey")
     axis(side = 1, at = xAxis*oneMinusPrev, labels = xAxis, 
          padj=-0.5, hadj=0.75, pos=par()$usr[4])
       
