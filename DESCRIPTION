@@ -9,8 +9,7 @@ Description: The package provides a visual tool, the RBP curve, to assess the
     performance of prediction models.
 License: GPL-3
 Imports:
-    checkmate
-Depends:
-    TeachingDemos,
+    BBmisc,
+    checkmate,
     shape,
-    BBmisc
+    TeachingDemos

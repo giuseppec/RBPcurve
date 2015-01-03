@@ -1,17 +1,17 @@
 #' @title Create data container for RBP curve.
 #'
 #' @description
-#' Must be created for all subsequent plot function calls. 
+#' Must be created for all subsequent plot function calls.
 #'
 #' @param pred [\code{numeric}]\cr
 #'   Predicted probabilities for each observation.
 #' @param y [\code{numeric} | \code{factor}]\cr
-#'   Class labels of the target variable. 
+#'   Class labels of the target variable.
 #'   Either a numeric vector with values \code{0} or \code{1}, or a factor with two levels.
 #' @param positive [\code{character(1)}]\cr
 #'  Set positive class label for target variable which is transformed as \code{1} to compute.
 #'  Only present when \code{y} is a "factor".
-#' 
+#'
 #' @return
 #' Object members:
 #' \describe{
@@ -25,16 +25,16 @@
 #'   \item{\code{tpr} [\code{numeric(1)}]}{True positive rate.}
 #'   \item{\code{fpr} [\code{numeric(1)}]}{False positive rate.}
 #'   \item{\code{prevalence} [\code{numeric(1)}]}{Prevalence.}
-#'   \item{\code{oneMinusPrev} [\code{numeric(1)}]}{One minus the value of the prevalence.}
+#'   \item{\code{one.minus.prev} [\code{numeric(1)}]}{One minus the value of the prevalence.}
 #'   \item{\code{axis.x} [\code{numeric(n)}]}{Values for the X-Axis of the RBP curve.}
 #'   \item{\code{axis.y} [\code{numeric(n)}]}{Values for the Y-Axis of the RBP curve.}
 #'  }
-#' 
+#'
 #' @export
 #' @import BBmisc
 #' @aliases RBPObj
 makeRBPObj = function(pred, y, positive = NULL) {
-  
+
   # Check and convert arguments
   assertNumeric(pred)
   assert(
@@ -50,7 +50,7 @@ makeRBPObj = function(pred, y, positive = NULL) {
     assertSubset(y, c(0, 1))
     if (!is.null(positive)) assertNull(positive)
   }
-  
+
   # Compute several measures
   n = length(y)
   eps = y - pred
@@ -59,19 +59,19 @@ makeRBPObj = function(pred, y, positive = NULL) {
   fpr = mean(pred[y == 0] > prevalence)
   e0 = mean(pred[y == 0])
   e1 = mean(pred[y == 1])
-  
+
   # Computes x and y axis for RBP curve
   axis.x = (1:n) / n
   axis.y = sort(eps)
-  
+
   # Get first value below and first value above horizontal line at 0
   #below0 = max(which(axis.y < 0))
   #above0 = min(which(axis.y > 0))
-  
+
   # Get the value of the x-axis where the RBP curve intersects the horizontal line at 0
   #interpol = approx(axis.x[c(below0, above0)}], axis.y[c(below0, above0)}], n = 1000)
   #vertical.line = interpol$x[which.min(abs(interpol$y))}]
-  
+
   makeS3Obj("RBPObj",
     n = n,
     pred = pred,
@@ -83,7 +83,7 @@ makeRBPObj = function(pred, y, positive = NULL) {
     tpr = tpr,
     fpr = fpr,
     prevalence = prevalence,
-    oneMinusPrev = 1 - prevalence,
+    one.minus.prev = 1 - prevalence,
     axis.x = axis.x,
     axis.y = axis.y
   )

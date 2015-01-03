@@ -1,43 +1,36 @@
 #' @title Visualizes a measure for well calibration on the RBP curve.
-#' 
-#' @description A measure for a well calibrated model can be obtained by grouping the predicted 
-#' probabilities via deciles and comparing the mean of the predicted probabilities within each 
+#'
+#' @description A measure for a well calibrated model can be obtained by grouping the predicted
+#' probabilities via deciles and comparing the mean of the predicted probabilities within each
 #' decile in the two groups that are determined by the target variable.
 #'
 #' @template arg_obj
 #' @template arg_plotvalues
-#' @param col [\code{character(10)} | \code{numeric(10)} ]\cr
-#' A specification for the the plotting color for the areas. 
-#' @param ... currently not used
-#' 
-#' @return A matrix that contains the average of the "probabilities within deciles" conditional on Y.
-#' 
-#' @import TeachingDemos
-#' @import shape
+#' @param col [\code{character} | \code{numeric}]\cr
+#'   A specification for the the plotting color for the areas.
+#' @return A matrix that contains the average of the \dQuote{probabilities within deciles}
+#'   conditional on Y.
 #' @export
-addWellCalib = function(obj, 
-  plot.values = TRUE, 
-  col = greycol(10L),
-  ...) {
-  
+addWellCalib = function(obj, plot.values = TRUE, col = shape::greycol(10L)) {
+
   # Check arguments
   assertClass(obj, "RBPObj")
   assertFlag(plot.values)
   assertVector(col, min.len = 1L, max.len = 10L)
-  
+
   # Store values of obj
   pred = obj$pred
   y = obj$y
   n = obj$n
   x0 = obj$axis.x
   y1 = obj$axis.y
-  
+
   # Set range for deciles
   quant = seq(0, 1, by = 0.1)
   up = 1 - quant
   lo = -quant
   quantiles = gsub(" ", ", ", do.call("paste", data.frame(quant[1:10], quant[2:11])))
-  
+
   # Matrix that will contain the average of the "probabilities within deciles" conditional on Y.
   areas = matrix(ncol = 2, nrow = (length(quant) - 1))
   row.names(areas) = paste("[", quantiles,"]", sep = "")
@@ -47,18 +40,18 @@ addWellCalib = function(obj,
   ind = NA
   pos = numeric(length(quant) - 1)
   neg = numeric(length(quant) - 1)
-  
+
   for (i in 1:(length(quant) - 1)) {
     # Residuals for different conditions
     diff = (y - pred)[pred < quant[i + 1L] & pred >= quant[i]]
     diff1 = (y - pred)[pred < quant[i + 1L] & pred >= quant[i] & y == 1]
     diff0 = (y - pred)[pred < quant[i + 1L] & pred >= quant[i] & y == 0]
-    
+
     # Store deciles where the number of observations is smaller than 2
     if (length(diff1) < 2L | length(diff0) < 2L) {
       if (any(is.na(ind))) ind = i else ind = c(ind, i)
     }
-    
+
     # Highlight the area for the probabilities of the i-th quantile when Y=1
     if (length(diff1) != 0L) {
       section = x0[y1 < up[i] & y1 >= up[i + 1L]]
@@ -84,7 +77,7 @@ addWellCalib = function(obj,
 
   # Add values for E1 and E0 into the plot
   if (plot.values) {
-    subplot(fun = {
+    TeachingDemos::subplot(fun = {
       barplot(rbind(pos, abs(neg)), beside = TRUE, col = rep(col, each = 2L),
         cex.axis = 1L, main = "Area", las = 2L)
       },
@@ -97,7 +90,7 @@ addWellCalib = function(obj,
   # Show message
   message("fewer than two observations with probabilities between: ",
     paste("[", quantiles[ind],"]", sep = "", collapse = ", "))
-  
+
   return(invisible(areas))
 }
 
