@@ -8,15 +8,17 @@
 #'
 #' @template arg_obj
 #' @template arg_plotvalues
-#' @template arg_text.col
+#' @param text.col [\code{character(1)} | \code{numeric(1)}]\cr
+#'   Text color, used when \code{plot.values = TRUE}, otherwise ignored.
+#'   Default is \dQuote{grey}.
 #' @template arg_col
 #' @export
-addPEV = function(obj, plot.values = TRUE, text.col = NULL, col = "grey") {
+addPEV = function(obj, plot.values = TRUE, text.col = "grey", col = "grey") {
 
   # Check arguments
   assertClass(obj, "RBPObj")
   assertFlag(plot.values)
-  assertVector(text.col, len = 1L)
+  assert(checkString(text.col), checkNumeric(text.col))
   assertVector(col, len = 1L)
 
   # Store values of obj
@@ -35,14 +37,10 @@ addPEV = function(obj, plot.values = TRUE, text.col = NULL, col = "grey") {
 
   # Add values for E1 and E0 into the plot
   if (plot.values) {
-    if (is.null(text.col)) text.col = "grey"
     text(min(x0), 0, col = text.col, adj = 0:1,
       labels = bquote(paste(hat(E)[0], " = ", .(round(obj$e0, 4L)))))
-
     text(x0[length(x0[x0 <= one.minus.prev]) + 1], 1, adj = 0:1, col = text.col,
       labels = bquote(paste(hat(E)[1], " = ", .(round(obj$e1, 4L)))))
-  } else {
-    if(!is.null(text.col)) assertNull(text.col)
   }
 
   # Show message

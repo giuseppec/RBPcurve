@@ -26,7 +26,7 @@ addRates = function(obj, plot.values = TRUE, thresh = obj$prevalence, col = "gre
 
   # Add lines for TPR
   lines(x = c(par()$usr[1L], one.minus.prev+tpr*prev),
-    y = c(1 - thresh, 1 - t),
+    y = c(1 - thresh, 1 - thresh),
     col = col, lty = 2L)
   lines(x = rep(one.minus.prev + tpr*prev, 2L),
     y = c(1 - thresh, par()$usr[4L]),
@@ -37,10 +37,10 @@ addRates = function(obj, plot.values = TRUE, thresh = obj$prevalence, col = "gre
 
   # Add lines for FPR
   lines(x = c(fpr*one.minus.prev, fpr*one.minus.prev),
-    y = c(-t, par()$usr[4L]),
+    y = c(-thresh, par()$usr[4L]),
     xpd = TRUE, col = col, lty = 2L)
   lines(x = c(par()$usr[1L], fpr*one.minus.prev),
-    y = c(-t, -t),
+    y = c(-thresh, -thresh),
     col = col, lty = 2L)
   shape::Arrowhead(x0 = fpr*one.minus.prev,
     y0 = par()$usr[4L], angle = 90L, arr.adj = 1L, arr.lwd = 1L,
@@ -51,17 +51,17 @@ addRates = function(obj, plot.values = TRUE, thresh = obj$prevalence, col = "gre
     text(x = (one.minus.prev + tpr*prev),
       y = par()$usr[4L],
       adj = c(1.1, 1), col = col,
-      labels = bquote(paste(TPR(t), " = ", .(round(tpr, 3L)))))
+      labels = bquote(paste(TPR(thresh), " = ", .(round(tpr, 3L)))))
     text(x = fpr*one.minus.prev,
       y = par()$usr[4L],
       xpd = TRUE, adj = c(0.5, 0), col = col,
-      labels = bquote(paste(FPR(t), " = ", .(round(fpr, 3L)))))
-    axis(2L, at = c(-t, 1 - t), labels = c("-t", "1 - t"), las = 2L,
+      labels = bquote(paste(FPR(thresh), " = ", .(round(fpr, 3L)))))
+    axis(2L, at = c(-thresh, 1 - thresh), labels = c("-t", "1 - t"), las = 2L,
       col.ticks = col, col.axis = col)
   }
 
-  message("TPR(t = ", t, ") = ", round(tpr, digits = 4L))
-  message("FPR(t = ", t, ") = ", round(fpr, digits = 4L))
+  message("TPR(t = ", thresh, ") = ", round(tpr, digits = 4L))
+  message("FPR(t = ", thresh, ") = ", round(fpr, digits = 4L))
   return(invisible(NULL))
 }
 

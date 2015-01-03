@@ -27,19 +27,23 @@ Default is \dQuote{Estimated Residuals}.}
 The plot type that should be drawn, see \code{\link{plot}} for all possible types.
 Default is \code{type = "l"} for \bold{l}ines.}
 
-\item{ylim}{limits for Y-axis. Default is \code{ylim = c(-1,1.1)}.}
+\item{ylim}{[\code{numeric(2)}]\cr
+Limits for Y-axis.
+Default is \code{c(-1, 1.1)}.}
 
 \item{cond.axis}{[\code{logical(1)}]\cr
 Should an additional axis be plotted reflecting residuals conditional on y?
 Default is \code{FALSE}.}
 
-\item{title.line}{where to plot the title, see \code{\link{title}}.}
+\item{title.line}{[\code{integer(1)}]\cr
+Where to plot the title, see \code{\link{title}}.}
 
 \item{add}{[\code{logical(1)}]\cr
 Should RBP plot be added to current plot?
 Default is \code{FALSE}.}
 
-\item{...}{passed to plot or lines (depending on add)}
+\item{...}{[any]\cr
+Passed to \code{\link{plot}} or \code{\link{lines}}, depending on \code{add}.}
 }
 \description{
 Plot residual-based predictiveness (RBP) curve.

@@ -3,23 +3,27 @@
 #' @template arg_obj
 #' @param main An overall title for the plot.
 #' @param xlab [\code{character(1)}]\cr
-#'  Label for X-axis.
-#'  Default is \dQuote{Cumulative Percentage}.
+#'   Label for X-axis.
+#'   Default is \dQuote{Cumulative Percentage}.
 #' @param ylab [\code{character(1)}]\cr
-#'  Label for Y-axis.
-#'  Default is \dQuote{Estimated Residuals}.
+#'   Label for Y-axis.
+#'   Default is \dQuote{Estimated Residuals}.
 #' @param type [\code{character(1)}]\cr
-#'  The plot type that should be drawn, see \code{\link{plot}} for all possible types. 
-#'  Default is \code{type = "l"} for \bold{l}ines.
-#' @param ylim limits for Y-axis. Default is \code{ylim = c(-1,1.1)}.
+#'   The plot type that should be drawn, see \code{\link{plot}} for all possible types.
+#'   Default is \code{type = "l"} for \bold{l}ines.
+#' @param ylim [\code{numeric(2)}]\cr
+#'   Limits for Y-axis.
+#'   Default is \code{c(-1, 1.1)}.
 #' @param cond.axis [\code{logical(1)}]\cr
-#'  Should an additional axis be plotted reflecting residuals conditional on y?
-#'  Default is \code{FALSE}.
-#' @param title.line where to plot the title, see \code{\link{title}}.
+#'   Should an additional axis be plotted reflecting residuals conditional on y?
+#'   Default is \code{FALSE}.
+#' @param title.line [\code{integer(1)}]\cr
+#'   Where to plot the title, see \code{\link{title}}.
 #' @param add [\code{logical(1)}]\cr
-#'  Should RBP plot be added to current plot?
-#'  Default is \code{FALSE}.
-#' @param ... passed to plot or lines (depending on add)
+#'   Should RBP plot be added to current plot?
+#'   Default is \code{FALSE}.
+#' @param ... [any]\cr
+#'   Passed to \code{\link{plot}} or \code{\link{lines}}, depending on \code{add}.
 #' @export
 plotRBPcurve = function (obj,
   main = "RBP Curve",
@@ -37,6 +41,10 @@ plotRBPcurve = function (obj,
   assertString(main)
   assertString(xlab)
   assertString(ylab)
+  assertString(type)
+  assertNumeric(ylim, len = 2L)
+  assertFlag(cond.axis)
+  assertNumber(title.line)
   assertFlag(add)
 
   # plot or add RBP curve
@@ -51,18 +59,18 @@ plotRBPcurve = function (obj,
   }
 
   # add conditional axis
-  oneMinusPrev = obj$oneMinusPrev
+  one.minus.prev = obj$one.minus.prev
   xAxis = seq(0, 1, by = 0.2)
   if (cond.axis) {
-    abline(v = oneMinusPrev, col = "grey")
-    axis(side = 1L, at = xAxis*oneMinusPrev, labels = xAxis, 
+    abline(v = one.minus.prev, col = "grey")
+    axis(side = 1L, at = xAxis*one.minus.prev, labels = xAxis,
       padj = -0.5, hadj = 0.75, pos = par()$usr[4])
-    axis(side = 3L, at = oneMinusPrev + xAxis*(1 - oneMinusPrev),
+    axis(side = 3L, at = one.minus.prev + xAxis*(1 - one.minus.prev),
       padj = 0.5, hadj = 0.25, labels = xAxis)
   }
 
   title(main, line = title.line)
-  
+
   return(invisible(NULL))
 }
 

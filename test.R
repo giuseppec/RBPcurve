@@ -1,4 +1,4 @@
-#load_all()
+load_all()
 
 mydata = read.csv("http://www.ats.ucla.edu/stat/data/binary.csv")
 head(mydata)
@@ -11,13 +11,13 @@ y = mydata$admit
 pred = predict(mylogit, type="response")
 
 obj = makeRBPObj(pred, y)
-plotRBPcurve(obj, cond.axis = T, type = "b")
+plotRBPcurve(obj, cond.axis = TRUE, type = "b")
 
 addPrevalence(obj)
 addGoodCalib(obj)
 addRates(obj)
 addPEV(obj)
-(mat = addWellCalib(obj))
+mat = addWellCalib(obj)
 
 
 

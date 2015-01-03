@@ -4,7 +4,7 @@
 \alias{addPEV}
 \title{Visualize the PEV on the RBP curve.}
 \usage{
-addPEV(obj, plot.values = TRUE, text.col = NULL, col = "grey")
+addPEV(obj, plot.values = TRUE, text.col = "grey", col = "grey")
 }
 \arguments{
 \item{obj}{[\code{\link{RBPObj}}]\cr
@@ -15,7 +15,8 @@ Whether the values of the corresponding measure should be added to the plot?
 Default is \code{FALSE}.}
 
 \item{text.col}{[\code{character(1)} | \code{numeric(1)}]\cr
-A specification for the text color to be plotted when \code{plot.values = TRUE}.}
+Text color, used when \code{plot.values = TRUE}, otherwise ignored.
+Default is \dQuote{grey}.}
 
 \item{col}{[\code{character(1)} | \code{numeric(1)}]\cr
 A specification for the plotting color.}
