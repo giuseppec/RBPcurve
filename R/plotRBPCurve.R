@@ -25,7 +25,7 @@
 #' @param ... [any]\cr
 #'   Passed to \code{\link{plot}} or \code{\link{lines}}, depending on \code{add}.
 #' @export
-plotRBPcurve = function (obj,
+plotRBPCurve = function (obj,
   main = "RBP Curve",
   xlab = "Cumulative Percentage",
   ylab = "Estimated Residuals",
