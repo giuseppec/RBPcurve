@@ -4,7 +4,8 @@
 \alias{addGoodCalib}
 \title{Visualizes a measure for good calibration on the RBP curve.}
 \usage{
-addGoodCalib(obj, plot.values = TRUE, col = "grey", border = NA, ...)
+addGoodCalib(obj, plot.values = TRUE, show.info = TRUE, col = rgb(0, 0, 0,
+  0.25), border = NA, ...)
 }
 \arguments{
 \item{obj}{[\code{\link{RBPObj}}]\cr
@@ -13,6 +14,10 @@ Data container for RBP curve.}
 \item{plot.values}{[\code{logical(1)}]\cr
 Whether the values of the corresponding measure should be added to the plot?
 Default is \code{FALSE}.}
+
+\item{show.info}{[\code{logical(1)}]\cr
+Print more information for the respective measure on console?
+Default is \code{TRUE}.}
 
 \item{col}{[\code{vector(1)}]\cr
 Color for filling the polygon, as in \code{\link{polygon}}.

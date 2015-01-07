@@ -1,7 +1,8 @@
 #' @title Plot residual-based predictiveness (RBP) curve.
 #'
 #' @template arg_obj
-#' @param main An overall title for the plot.
+#' @param main [\code{character(1)}]\cr
+#' An overall title for the plot.
 #' @param xlab [\code{character(1)}]\cr
 #'   Label for X-axis.
 #'   Default is \dQuote{Cumulative Percentage}.
@@ -30,7 +31,7 @@ plotRBPCurve = function (obj,
   xlab = "Cumulative Percentage",
   ylab = "Estimated Residuals",
   type = "l",
-  ylim = c(-1, 1.1),
+  ylim = c(-1, 1.2),
   cond.axis = FALSE,
   title.line = ifelse(cond.axis, 3, 2),
   add = FALSE,
@@ -54,19 +55,19 @@ plotRBPCurve = function (obj,
     plot(x = obj$axis.x, y = obj$axis.y,
       xlab = xlab, ylab = ylab, ylim = ylim,
       main = "", type = type, yaxt = "n", ...)
-    axis(2, las = 2L)
+    axis(2L, las = 2L)
     abline(h = 0L, col = "grey")
   }
 
   # add conditional axis
-  one.minus.prev = obj$one.minus.prev
+  omp = obj$one.min.prev
   xAxis = seq(0, 1, by = 0.2)
   if (cond.axis) {
-    abline(v = one.minus.prev, col = "grey")
-    axis(side = 1L, at = xAxis*one.minus.prev, labels = xAxis,
-      padj = -0.5, hadj = 0.75, pos = par()$usr[4])
-    axis(side = 3L, at = one.minus.prev + xAxis*(1 - one.minus.prev),
-      padj = 0.5, hadj = 0.25, labels = xAxis)
+    abline(v = omp, col = "grey")
+    axis(side = 1L, at = xAxis*omp, labels = xAxis,
+      padj = -0.5, hadj = 0.6, pos = par()$usr[4L])
+    axis(side = 3L, at = omp + xAxis*(1 - omp),
+      padj = 0.5, hadj = 0.4, labels = xAxis)
   }
 
   title(main, line = title.line)

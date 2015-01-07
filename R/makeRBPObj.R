@@ -10,7 +10,7 @@
 #'   Either a numeric vector with values \code{0} or \code{1}, or a factor with two levels.
 #' @param positive [\code{character(1)}]\cr
 #'  Set positive class label for target variable which is transformed as \code{1} to compute.
-#'  Only present when \code{y} is a "factor".
+#'  Only needed when \code{y} is a "factor".
 #'
 #' @return
 #' Object members:
@@ -24,8 +24,8 @@
 #'   \item{\code{pev} [\code{numeric(1)}]}{Proportion of explained variation measure. Computed as \code{e1-e0}.}
 #'   \item{\code{tpr} [\code{numeric(1)}]}{True positive rate.}
 #'   \item{\code{fpr} [\code{numeric(1)}]}{False positive rate.}
-#'   \item{\code{prevalence} [\code{numeric(1)}]}{Prevalence.}
-#'   \item{\code{one.minus.prev} [\code{numeric(1)}]}{One minus the value of the prevalence.}
+#'   \item{\code{prev} [\code{numeric(1)}]}{Prevalence.}
+#'   \item{\code{one.min.prev} [\code{numeric(1)}]}{One minus the value of the prevalence.}
 #'   \item{\code{axis.x} [\code{numeric(n)}]}{Values for the X-Axis of the RBP curve.}
 #'   \item{\code{axis.y} [\code{numeric(n)}]}{Values for the Y-Axis of the RBP curve.}
 #'  }
@@ -47,30 +47,22 @@ makeRBPObj = function(pred, y, positive = NULL) {
     } else assertSubset(positive, levels(y))
     y = as.numeric(y == positive)
   } else {
-    assertSubset(y, c(0, 1))
+    assertSubset(y, 0:1)
     if (!is.null(positive)) assertNull(positive)
   }
 
   # Compute several measures
   n = length(y)
   eps = y - pred
-  prevalence = mean(y)
-  tpr = mean(pred[y == 1] > prevalence)
-  fpr = mean(pred[y == 0] > prevalence)
-  e0 = mean(pred[y == 0])
-  e1 = mean(pred[y == 1])
+  prev = mean(y)
+  tpr = mean(pred[y == 1L] > prev)
+  fpr = mean(pred[y == 0L] > prev)
+  e0 = mean(pred[y == 0L])
+  e1 = mean(pred[y == 1L])
 
   # Computes x and y axis for RBP curve
   axis.x = (1:n) / n
   axis.y = sort(eps)
-
-  # Get first value below and first value above horizontal line at 0
-  #below0 = max(which(axis.y < 0))
-  #above0 = min(which(axis.y > 0))
-
-  # Get the value of the x-axis where the RBP curve intersects the horizontal line at 0
-  #interpol = approx(axis.x[c(below0, above0)}], axis.y[c(below0, above0)}], n = 1000)
-  #vertical.line = interpol$x[which.min(abs(interpol$y))}]
 
   makeS3Obj("RBPObj",
     n = n,
@@ -82,8 +74,8 @@ makeRBPObj = function(pred, y, positive = NULL) {
     pev = e1 - e0,
     tpr = tpr,
     fpr = fpr,
-    prevalence = prevalence,
-    one.minus.prev = 1 - prevalence,
+    prev = prev,
+    one.min.prev = 1 - prev,
     axis.x = axis.x,
     axis.y = axis.y
   )

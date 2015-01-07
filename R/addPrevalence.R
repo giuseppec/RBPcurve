@@ -13,21 +13,18 @@ addPrevalence = function(obj, plot.values = TRUE, col = "grey") {
   assertClass(obj, "RBPObj")
 
   # Compute 1-prevalence
-  one.minus.prev = obj$one.minus.prev
+  omp = obj$one.min.prev
 
   # Plot vertical lines where the distance between the lines reflects the prevalence
-  abline(v = c(one.minus.prev, 1), col = col)
-  shape::Arrows(x0 = one.minus.prev, x1 = 1L, arr.col = col, col = col, lcol = col,
-    y0 = -1L, y1 = -1L, code = 3L, arr.adj = 1L)
+  abline(v = c(omp, 1), col = col)
+  shape::Arrows(x0 = omp, x1 = 1L, y0 = -1L, y1 = -1L, 
+    code = 3L, arr.adj = 1L, arr.col = col, col = col, lcol = col)
 
   # Should the value of the prevalence be plotted into the current plot?
   if (plot.values) {
     text(1 - (mean(obj$y) / 2), -1L, col = col,
-      bquote(paste(hat(theta), " = ", .(obj$prevalence))), pos = 3L)
+      bquote(paste(hat(theta), " = ", .(obj$prev))), pos = 3L)
   }
-
-  # Print message
-  message("Prevalence: ", obj$prevalence)
 
   return(invisible(NULL))
 }

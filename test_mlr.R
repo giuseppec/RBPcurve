@@ -7,14 +7,15 @@ myplot1 = function(pred, ...) {
   p = getProbabilities(pred)
   obj = makeRBPObj(p, pred$data$truth, positive = pred$desc$positive)
   plotRBPCurve(obj, ...)
+  return(obj)
 }
 
-
-myplot2 = function(lrn, task) {
+myplot2 = function(lrn, task, ...) {
   lrn = mlr:::checkLearnerClassif(lrn)
   lrn = setPredictType(lrn, "prob")
   r = holdout(lrn, task)
-  myplot1(r$pred)
+  obj = myplot1(r$pred, ...)
+  return(obj)
 }
 
 # lrn = makeLearner("classif.logreg", predict.type = "prob")
@@ -22,4 +23,9 @@ myplot2 = function(lrn, task) {
 # r = holdout(lrn, task)
 # myplot1(r$pred)
 
-myplot2("classif.rpart", sonar.task)
+obj = myplot2("classif.rpart", sonar.task, type="l", cond.axis=TRUE)
+addPrevalence(obj)
+addGoodCalib(obj)
+addRates(obj)
+addPEV(obj)
+addWellCalib(obj)

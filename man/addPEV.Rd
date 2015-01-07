@@ -4,7 +4,8 @@
 \alias{addPEV}
 \title{Visualize the PEV on the RBP curve.}
 \usage{
-addPEV(obj, plot.values = TRUE, text.col = "grey", col = "grey")
+addPEV(obj, plot.values = TRUE, show.info = TRUE, text.col = "grey",
+  col = rgb(0, 0, 0, 0.25))
 }
 \arguments{
 \item{obj}{[\code{\link{RBPObj}}]\cr
@@ -14,12 +15,19 @@ Data container for RBP curve.}
 Whether the values of the corresponding measure should be added to the plot?
 Default is \code{FALSE}.}
 
+\item{show.info}{[\code{logical(1)}]\cr
+Print more information for the respective measure on console?
+Default is \code{TRUE}.}
+
 \item{text.col}{[\code{character(1)} | \code{numeric(1)}]\cr
 Text color, used when \code{plot.values = TRUE}, otherwise ignored.
 Default is \dQuote{grey}.}
 
 \item{col}{[\code{character(1)} | \code{numeric(1)}]\cr
 A specification for the plotting color.}
+}
+\value{
+[\code{invisible(NULL)}].
 }
 \description{
 The PEV measure is the difference between the conditional expectation of the predicted

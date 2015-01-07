@@ -4,7 +4,7 @@
 \alias{addRates}
 \title{Visualizes the TPR and FPR on the RBP curve.}
 \usage{
-addRates(obj, plot.values = TRUE, thresh = obj$prevalence, col = "grey")
+addRates(obj, plot.values = TRUE, thresh = obj$prev, col = "grey")
 }
 \arguments{
 \item{obj}{[\code{\link{RBPObj}}]\cr
@@ -20,6 +20,9 @@ Default is prevalence.}
 
 \item{col}{[\code{character(1)} | \code{numeric(1)}]\cr
 A specification for the plotting color.}
+}
+\value{
+[\code{invisible(NULL)}].
 }
 \description{
 For a given threshold \code{tresh}, the true positive rate (TPR) and the false positive

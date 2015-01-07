@@ -4,7 +4,8 @@
 \alias{addWellCalib}
 \title{Visualizes a measure for well calibration on the RBP curve.}
 \usage{
-addWellCalib(obj, plot.values = TRUE, col = shape::greycol(10L))
+addWellCalib(obj, plot.values = TRUE, col = shape::greycol(10L),
+  pos = "topleft")
 }
 \arguments{
 \item{obj}{[\code{\link{RBPObj}}]\cr
@@ -16,14 +17,19 @@ Default is \code{FALSE}.}
 
 \item{col}{[\code{character} | \code{numeric}]\cr
 A specification for the the plotting color for the areas.}
+
+\item{pos}{[\code{character(1)}]
+Position of the}
 }
 \value{
 A matrix that contains the average of the \dQuote{probabilities within deciles}
   conditional on Y.
 }
 \description{
-A measure for a well calibrated model can be obtained by grouping the predicted
-probabilities via deciles and comparing the mean of the predicted probabilities within each
+A measure for a well calibrated model can be obtained by
+grouping the predicted probabilities via deciles. As the estimated residuals
+are $1-\hat{p}$ and 0-p, where p are the predicted probabilities,
+the predicted probabilities  and comparing the mean of the predicted probabilities within each
 decile in the two groups that are determined by the target variable.
 }
 

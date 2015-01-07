@@ -5,7 +5,7 @@
 \title{Plot residual-based predictiveness (RBP) curve.}
 \usage{
 plotRBPCurve(obj, main = "RBP Curve", xlab = "Cumulative Percentage",
-  ylab = "Estimated Residuals", type = "l", ylim = c(-1, 1.1),
+  ylab = "Estimated Residuals", type = "l", ylim = c(-1, 1.2),
   cond.axis = FALSE, title.line = ifelse(cond.axis, 3, 2), add = FALSE,
   ...)
 }
@@ -13,7 +13,8 @@ plotRBPCurve(obj, main = "RBP Curve", xlab = "Cumulative Percentage",
 \item{obj}{[\code{\link{RBPObj}}]\cr
 Data container for RBP curve.}
 
-\item{main}{An overall title for the plot.}
+\item{main}{[\code{character(1)}]\cr
+An overall title for the plot.}
 
 \item{xlab}{[\code{character(1)}]\cr
 Label for X-axis.
