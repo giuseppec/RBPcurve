@@ -24,6 +24,9 @@ addPrevalence = function(obj, plot.values = TRUE, col = "grey") {
   if (plot.values) {
     text(1 - (mean(obj$y) / 2), -1L, col = col,
       bquote(paste(hat(theta), " = ", .(obj$prev))), pos = 3L)
+  } else {
+    text(1 - (mean(obj$y) / 2), -1L, col = col, 
+      expression(hat(theta)), pos = 3L)
   }
 
   return(invisible(NULL))

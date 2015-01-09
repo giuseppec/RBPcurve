@@ -17,7 +17,7 @@ Either a numeric vector with values \code{0} or \code{1}, or a factor with two l
 
 \item{positive}{[\code{character(1)}]\cr
  Set positive class label for target variable which is transformed as \code{1} to compute.
- Only present when \code{y} is a "factor".}
+ Only needed when \code{y} is a "factor".}
 }
 \value{
 Object members:

@@ -4,7 +4,7 @@
 \alias{addPEV}
 \title{Visualize the PEV on the RBP curve.}
 \usage{
-addPEV(obj, plot.values = TRUE, show.info = TRUE, text.col = "grey",
+addPEV(obj, plot.values = TRUE, show.info = TRUE, text.col = "black",
   col = rgb(0, 0, 0, 0.25))
 }
 \arguments{
@@ -21,7 +21,7 @@ Default is \code{TRUE}.}
 
 \item{text.col}{[\code{character(1)} | \code{numeric(1)}]\cr
 Text color, used when \code{plot.values = TRUE}, otherwise ignored.
-Default is \dQuote{grey}.}
+Default is \dQuote{black}.}
 
 \item{col}{[\code{character(1)} | \code{numeric(1)}]\cr
 A specification for the plotting color.}

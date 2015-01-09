@@ -7,7 +7,7 @@ myplot1 = function(pred, ...) {
   p = getProbabilities(pred)
   obj = makeRBPObj(p, pred$data$truth, positive = pred$desc$positive)
   plotRBPCurve(obj, ...)
-  return(obj)
+  return(invisible(obj))
 }
 
 myplot2 = function(lrn, task, ...) {
@@ -15,7 +15,7 @@ myplot2 = function(lrn, task, ...) {
   lrn = setPredictType(lrn, "prob")
   r = holdout(lrn, task)
   obj = myplot1(r$pred, ...)
-  return(obj)
+  return(invisible(obj))
 }
 
 # lrn = makeLearner("classif.logreg", predict.type = "prob")

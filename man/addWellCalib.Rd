@@ -19,7 +19,9 @@ Default is \code{FALSE}.}
 A specification for the the plotting color for the areas.}
 
 \item{pos}{[\code{character(1)}]
-Position of the}
+Determines the position of the subplot that is plotted when \code{plot.values = TRUE}.
+Can be either \code{pos = "topleft"} or \code{pos = "bottomright"}.
+Default is \code{pos = "topleft"}.}
 }
 \value{
 A matrix that contains the average of the \dQuote{probabilities within deciles}
@@ -27,9 +29,8 @@ A matrix that contains the average of the \dQuote{probabilities within deciles}
 }
 \description{
 A measure for a well calibrated model can be obtained by
-grouping the predicted probabilities via deciles. As the estimated residuals
-are $1-\hat{p}$ and 0-p, where p are the predicted probabilities,
-the predicted probabilities  and comparing the mean of the predicted probabilities within each
-decile in the two groups that are determined by the target variable.
+grouping the predicted probabilities via deciles yielding 10 groups.
+The equally collored areas belong to a specific group. When each of the two
+equally collored areas are similar, the model is well calibrated.
 }
 

@@ -4,7 +4,7 @@
 \alias{addRates}
 \title{Visualizes the TPR and FPR on the RBP curve.}
 \usage{
-addRates(obj, plot.values = TRUE, thresh = obj$prev, col = "grey")
+addRates(obj, plot.values = TRUE, thresh = obj$prev, col = "black")
 }
 \arguments{
 \item{obj}{[\code{\link{RBPObj}}]\cr
@@ -25,8 +25,9 @@ A specification for the plotting color.}
 [\code{invisible(NULL)}].
 }
 \description{
-For a given threshold \code{tresh}, the true positive rate (TPR) and the false positive
-rate (FPR) can be visually assessed by the RBP curve by the intersection of the RBP curve with
-the horizontal lines at \code{-thresh} and \code{1 - thresh}, respectively.
+For a given threshold \code{tresh}, the true positive rate (TPR)
+and the false positive rate (FPR) can be visually assessed by the RBP curve
+by the intersection of the RBP curve with the horizontal lines at
+\code{-thresh} and \code{1 - thresh}, respectively.
 }
 
