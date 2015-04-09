@@ -61,9 +61,9 @@ plotRBPCurve = function (obj,
 
   # argument checks
   assertClass(obj, "RBPObj")
-  assertString(main)
-  assertString(xlab)
-  assertString(ylab)
+  #assertString(main)
+  #assertString(xlab)
+  #assertString(ylab)
   assertString(type)
   assertNumeric(ylim, len = 2L)
   assertFlag(cond.axis)
