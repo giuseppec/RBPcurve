@@ -8,14 +8,21 @@
 #' @template arg_obj
 #' @template arg_plotvalues
 #' @template arg_col
+#' @template arg_digits
 #' @param thresh [\code{numeric(1)}]\cr
 #'   Threshold that is used to compute the true positve and false positive rate.
 #'   Default is prevalence.
+#' @param thresh.label [\code{character(1)}]\cr
+#'   The label for the threshold that is plotted when \code{plot.values = TRUE}.
 #' @template ret_invnull
 #' @export
-addRates = function(obj, plot.values = TRUE, 
-  thresh = obj$prev, col = "black") {
+addRates = function(obj, plot.values = TRUE, col = "black", digits = 3L,
+  thresh = obj$prev, thresh.label = "thresh") {
 
+  if(is.expression(thresh.label)) {
+    thresh.label <- thresh.label[[1]]
+  }
+  
   # Check arguments
   assertClass(obj, "RBPObj")
   assertFlag(plot.values)
@@ -52,10 +59,9 @@ addRates = function(obj, plot.values = TRUE,
   # Add values for FPR and TPR into the plot
   if (plot.values) {
     text(x = xtpr, y = par()$usr[4L], adj = c(1.1, 1), col = col,
-      labels = bquote(paste(TPR(thresh), " = ", .(round(tpr, 3L)))))
-    text(x = xfpr, y = par()$usr[4L], xpd = TRUE, pos=3, 
-         col = col, labels = sprintf("FPR(thresh) = %s", round(fpr, 3L))
-      )
+      labels = bquote(plain(TPR) * (.(thresh.label)) == .(round(tpr, digits))))
+    text(x = xfpr, y = par()$usr[4L], xpd = TRUE, pos=3, col = col, 
+      labels = bquote(plain(FPR) * (.(thresh.label)) == .(round(fpr, digits))))
   }
 
   return(invisible(NULL))

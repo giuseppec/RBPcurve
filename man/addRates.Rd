@@ -4,7 +4,8 @@
 \alias{addRates}
 \title{Visualizes the TPR and FPR on the RBP curve.}
 \usage{
-addRates(obj, plot.values = TRUE, thresh = obj$prev, col = "black")
+addRates(obj, plot.values = TRUE, col = "black", digits = 3L,
+  thresh = obj$prev, thresh.label = "thresh")
 }
 \arguments{
 \item{obj}{[\code{\link{RBPObj}}]\cr
@@ -14,12 +15,20 @@ Data container for RBP curve.}
 Whether the values of the corresponding measure should be added to the plot?
 Default is \code{FALSE}.}
 
+\item{col}{[\code{character(1)} | \code{numeric(1)}]\cr
+A specification for the plotting color.}
+
+\item{digits}{[\code{numeric(1)}]\cr
+Indicates the number of decimal places for the values that are plotted when
+\code{plot.values = TRUE}.
+Default is \code{3L}.}
+
 \item{thresh}{[\code{numeric(1)}]\cr
 Threshold that is used to compute the true positve and false positive rate.
 Default is prevalence.}
 
-\item{col}{[\code{character(1)} | \code{numeric(1)}]\cr
-A specification for the plotting color.}
+\item{thresh.label}{[\code{character(1)}]\cr
+The label for the threshold that is plotted when \code{plot.values = TRUE}.}
 }
 \value{
 [\code{invisible(NULL)}].
