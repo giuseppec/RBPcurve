@@ -6,3 +6,5 @@ RBPcurve
   ```
   devtools::install_github("giuseppec/RBPcurve")
   ```
+  
+* Travis CI: [![Build Status](https://travis-ci.org/giuseppec/RBPcurve.png)](https://travis-ci.org/giuseppec/RBPcurve)
