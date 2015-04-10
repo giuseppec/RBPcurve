@@ -9,22 +9,26 @@
 #' @template arg_plotvalues
 #' @param col [\code{character} | \code{numeric}]\cr
 #'   A specification for the the plotting color for the areas.
-#' @param pos [\code{character(1)}] 
-#'   Determines the position of the subplot that is plotted when \code{plot.values = TRUE}. 
-#'   Can be either \code{pos = "topleft"} or \code{pos = "bottomright"}.
-#'   Default is \code{pos = "topleft"}.
+#' @param pos [\code{list}] 
+#'   A named List that determines the \code{x} and \code{y} positioning of a subplot that
+#'   compares the areas in additional barplots (see \code{\link{subplot}}).
+#'   Can be \code{NA} for no additional subplot.
+#'   Default is \code{pos = NULL} for an auto positioning in the topleft quadrant.
 #' @return A matrix that contains the average of the \dQuote{probabilities within deciles}
 #'   conditional on Y.
 #' @export
 #' 
 addWellCalib = function(obj, plot.values = TRUE, 
-  col = shape::greycol(10L), pos = "topleft") {
+  col = shape::greycol(10L, interval = c(0.3, 1)), pos = NULL) {
 
   # Check arguments
   assertClass(obj, "RBPObj")
   assertFlag(plot.values)
   assertVector(col, min.len = 1L, max.len = 10L)
-  assertChoice(pos, c("topleft", "bottomright"))
+  if(is.null(pos)) pos = list(x =  c(0.15, 0.85 - obj$prev), y = c(0.3, 0.9))
+  if(any(is.na(pos))) pos = list(x = as.numeric(NA), y = as.numeric(NA))
+  assertList(pos, types = "numeric", len = 2)
+  assertSubset(names(pos), c("x","y"))
   
   # Store values of obj
   pred = obj$pred
@@ -49,27 +53,23 @@ addWellCalib = function(obj, plot.values = TRUE,
     eps1 = eps[pred < q[i + 1L] & pred >= q[i] & y == 1L]
     eps0 = eps[pred < q[i + 1L] & pred >= q[i] & y == 0L]
     
-    # Highlight the area for the probabilities bounded by the i-th and (i+1)-th decile
-    if (length(eps0) != 0L) areaCalib(x1, y1, lo[i], col[i])
-    if (length(eps1) != 0L) areaCalib(x1, y1, up[i], col[i])
-    
     areas[i, ] = c(sum(eps0), sum(eps1)) / n
+    
+    # Highlight the area for the probabilities bounded by the i-th and (i+1)-th decile
+    if (length(eps0) != 0L) 
+      areaCalib(x1, y1, lo[i], col[i], 
+        label = round(areas[i, "Y = 0"], 4), plot.values = plot.values, pos = 4)
+    if (length(eps1) != 0L) 
+      areaCalib(x1, y1, up[i], col[i], 
+        label = round(areas[i, "Y = 1"], 4), plot.values = plot.values, pos = 2)
   }
   
-  # Add values for E1 and E0 into the plot
-  if (plot.values) {
-    if (pos == "topleft") {
-      x = c(0.1, 1 - obj$prev)
-      y = c(0.3, 0.8) 
-    } else {
-      x = c(1.1 - obj$prev, 1)
-      y = c(-0.8, -0.3) 
-    }
-    
+  # Add subplot
+  if (!any(is.na(pos))) {    
     TeachingDemos::subplot(fun = {
       barplot(t(abs(areas)), beside = TRUE, col = rep(col, each = 2L),
         main = "Area", las = 2L, xaxt = "n")
-      }, x = x, y = y, pars = list(mar = c(0, 0, 1, 0) + 0.1)
+      }, x = pos$x, y = pos$y, pars = list(mar = c(0, 0, 1, 0) + 0.1)
     )
   }
   
@@ -77,10 +77,19 @@ addWellCalib = function(obj, plot.values = TRUE,
 }
 
 # helper for highlighting the area bounded by deciles of predicted risks
-areaCalib = function(x1, y1, thres, col) {
+areaCalib = function(x1, y1, thres, col, label, plot.values, pos) {
+  wg <- ifelse(pos == 4, 1, 3)
   ind = (y1 < thres) & (y1 >= thres - 0.1)
   if (sum(ind) != 0L) {
     polygon(x = c(min(x1[ind]), x1[ind], max(x1[ind])),
       y = c(0, y1[ind], 0), border = 1L, col = col)
+    if (plot.values) {
+      TeachingDemos::shadowtext(
+        x = mean(c(rep(min(x1[ind]), pos-1), rep(max(x1[ind]), wg))),
+        #(min(x1[ind])+max(x1[ind]))/2, 
+        y = mean(c(thres, thres - 0.1)), bg = "white",
+        labels = label, 
+        pos = pos, col = col)
+    }
   }
 }

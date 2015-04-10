@@ -4,8 +4,8 @@
 \alias{addWellCalib}
 \title{Visualizes a measure for well calibration on the RBP curve.}
 \usage{
-addWellCalib(obj, plot.values = TRUE, col = shape::greycol(10L),
-  pos = "topleft")
+addWellCalib(obj, plot.values = TRUE, col = shape::greycol(10L, interval =
+  c(0.3, 1)), pos = NULL)
 }
 \arguments{
 \item{obj}{[\code{\link{RBPObj}}]\cr
@@ -18,10 +18,11 @@ Default is \code{FALSE}.}
 \item{col}{[\code{character} | \code{numeric}]\cr
 A specification for the the plotting color for the areas.}
 
-\item{pos}{[\code{character(1)}]
-Determines the position of the subplot that is plotted when \code{plot.values = TRUE}.
-Can be either \code{pos = "topleft"} or \code{pos = "bottomright"}.
-Default is \code{pos = "topleft"}.}
+\item{pos}{[\code{list}]
+A named List that determines the \code{x} and \code{y} positioning of a subplot that
+compares the areas in additional barplots (see \code{\link{subplot}}).
+Can be \code{NA} for no additional subplot.
+Default is \code{pos = NULL} for an auto positioning in the topleft quadrant.}
 }
 \value{
 A matrix that contains the average of the \dQuote{probabilities within deciles}
