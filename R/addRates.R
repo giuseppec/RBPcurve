@@ -7,8 +7,8 @@
 #'
 #' @template arg_obj
 #' @template arg_plotvalues
-#' @template arg_col
 #' @template arg_digits
+#' @template arg_col
 #' @param thresh [\code{numeric(1)}]\cr
 #'   Threshold that is used to compute the true positve and false positive rate.
 #'   Default is prevalence.
@@ -16,7 +16,7 @@
 #'   The label for the threshold that is plotted when \code{plot.values = TRUE}.
 #' @template ret_invnull
 #' @export
-addRates = function(obj, plot.values = TRUE, col = "black", digits = 3L,
+addRates = function(obj, plot.values = TRUE, digits = 3L, col = "black", 
   thresh = obj$prev, thresh.label = "thresh") {
 
   if(is.expression(thresh.label)) {
@@ -64,7 +64,7 @@ addRates = function(obj, plot.values = TRUE, col = "black", digits = 3L,
       labels = bquote(plain(FPR) * (.(thresh.label)) == .(round(fpr, digits))))
   }
 
-  return(invisible(NULL))
+  return(invisible(c("TPR" = tpr, "FPR" = fpr)))
 }
 
 
