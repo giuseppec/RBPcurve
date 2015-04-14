@@ -6,10 +6,11 @@
 #'
 #' @template arg_obj
 #' @template arg_plotvalues
+#' @template arg_digits
 #' @template arg_col
 #' @template ret_invnull
 #' @export
-addPrevalence = function(obj, plot.values = TRUE, col = "grey") {
+addPrevalence = function(obj, plot.values = TRUE, digits = 3L, col = "grey") {
   assertClass(obj, "RBPObj")
 
   # Compute 1-prevalence
@@ -23,7 +24,7 @@ addPrevalence = function(obj, plot.values = TRUE, col = "grey") {
   # Should the value of the prevalence be plotted into the current plot?
   if (plot.values) {
     text(1 - (mean(obj$y) / 2), -1L, col = col,
-      bquote(paste(hat(theta), " = ", .(obj$prev))), pos = 3L)
+      bquote(paste(hat(theta), " = ", .(round(obj$prev, digits)))), pos = 3L)
   } else {
     text(1 - (mean(obj$y) / 2), -1L, col = col, 
       expression(hat(theta)), pos = 3L)
