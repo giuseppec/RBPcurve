@@ -59,9 +59,9 @@ addRates = function(obj, plot.values = TRUE, digits = 3L, col = "black",
   # Add values for FPR and TPR into the plot
   if (plot.values) {
     text(x = xtpr, y = par()$usr[4L], adj = c(1.1, 1), col = col,
-      labels = bquote(plain(TPR) * (.(thresh.label)) == .(round(tpr, digits))))
+      labels = bquote(plain(widehat(TPR)) * (.(thresh.label)) == .(round(tpr, digits))))
     text(x = xfpr, y = par()$usr[4L], xpd = TRUE, pos=3, col = col, 
-      labels = bquote(plain(FPR) * (.(thresh.label)) == .(round(fpr, digits))))
+      labels = bquote(plain(widehat(FPR)) * (.(thresh.label)) == .(round(fpr, digits))))
   }
 
   return(invisible(c("TPR" = tpr, "FPR" = fpr)))
