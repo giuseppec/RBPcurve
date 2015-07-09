@@ -87,7 +87,7 @@ plotRBPCurve = function (obj,
       main = "", type = type, yaxt = "n", xaxt = "n", ...)
     axis(1L, hadj = x.adj[1], padj = x.adj[2])
     axis(2L, las = 2L, hadj = y.adj[1], padj = y.adj[2])
-    abline(h = 0L, col = "grey")
+    #abline(h = 0L, col = "grey")
   }
 
   # add conditional axis
