@@ -7,6 +7,11 @@
 #'
 #' @template arg_obj
 #' @template arg_plotvalues
+#' @param subplot.control [\code{list}]
+#'   A named list of arguments that will be passed to \code{\link{barplot}}.
+#'   Additionally, you can set \code{diff = TRUE} to plot differences of the 
+#'   equally collored areas or \code{diff = FALSE} to directly plot the areas 
+#'   of the equally collored areas in juxtaposed bars.
 #' @param col [\code{character} | \code{numeric}]\cr
 #'   A specification for the the plotting color for the areas.
 #' @param pos [\code{list}] 
@@ -18,7 +23,7 @@
 #'   conditional on Y.
 #' @export
 #' 
-addWellCalib = function(obj, plot.values = TRUE, 
+addWellCalib = function(obj, plot.values = TRUE, subplot.control = list(diff = TRUE),
   col = shape::greycol(10L, interval = c(0.3, 1)), pos = NULL) {
 
   # Check arguments
@@ -28,7 +33,17 @@ addWellCalib = function(obj, plot.values = TRUE,
   if(is.null(pos)) pos = list(x =  c(0.15, 0.85 - obj$prev), y = c(0.3, 0.9))
   if(any(is.na(pos))) pos = list(x = as.numeric(NA), y = as.numeric(NA))
   assertList(pos, types = "numeric", len = 2)
-  assertSubset(names(pos), c("x","y"))
+  assertSubset(names(pos), c("x", "y"))
+  
+  if("diff"%in%names(subplot.control)){
+    diff = subplot.control$diff
+    subplot.control$diff = NULL
+  } else diff = FALSE
+  name = c("las", "xaxt", "col", "main", "height", "beside")
+  if(any(name%in%names(subplot.control))){
+    stopf("arguments %s not allowed in subplot.control", 
+      paste(name, collapse=", "))
+  }
   
   # Store values of obj
   pred = obj$pred
@@ -67,8 +82,12 @@ addWellCalib = function(obj, plot.values = TRUE,
   # Add subplot
   if (!any(is.na(pos))) {    
     TeachingDemos::subplot(fun = {
-      barplot(t(abs(areas)), beside = TRUE, col = rep(col, each = 2L),
-        main = "Area", las = 2L, xaxt = "n")
+      if(!diff){
+        args = list(height = t(abs(areas)), beside = TRUE, col = rep(col, each = 2L), main = "Area")
+      }else{
+        args = list(height = rowSums(areas), col = col, main = "Area difference")
+      }
+      do.call("barplot", append(append(args, list(las = 2L, xaxt = "n")), subplot.control))
       }, x = pos$x, y = pos$y, pars = list(mar = c(0, 0, 1, 0) + 0.1)
     )
   }
