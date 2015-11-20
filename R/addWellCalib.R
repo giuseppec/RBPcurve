@@ -22,7 +22,7 @@
 #' @return A matrix that contains the average of the \dQuote{probabilities within deciles}
 #'   conditional on Y.
 #' @export
-#' 
+
 addWellCalib = function(obj, plot.values = TRUE, subplot.control = list(diff = TRUE),
   col = shape::greycol(10L, interval = c(0.3, 1)), pos = NULL) {
 

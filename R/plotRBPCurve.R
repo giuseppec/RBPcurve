@@ -1,5 +1,7 @@
 #' @title Plot residual-based predictiveness (RBP) curve.
 #'
+#' @description plots the RBP curve
+#' 
 #' @template arg_obj
 #' @param main [\code{character(1)}]\cr
 #' An overall title for the plot.
@@ -44,13 +46,15 @@
 #' obj1 = makeRBPObj(pred1, y)
 #' plotRBPCurve(obj1, cond.axis = TRUE, type = "b")
 #' 
+#' \dontrun{
 #' # Build logit model using mlr and plot RBP curve
-#' task = makeClassifTask(data = mydata, target = "admit", positive = 1)
+#' task = makeClassifTask(data = mydata, target = "admit")
 #' lrn = makeLearner("classif.logreg", predict.type = "prob")
 #' tr = train(lrn, task)
-#' pred2 = getProbabilities(predict(tr, task))
+#' pred2 = getPredictionProbabilities(predict(tr, task))
 #' obj2 = makeRBPObj(pred2, y)
 #' plotRBPCurve(obj2, cond.axis = TRUE, type = "b", col = 2)
+#' }
 
 plotRBPCurve = function (obj,
   main = "RBP Curve",
