@@ -4,8 +4,8 @@
 \alias{addGoodCalib}
 \title{Visualizes a measure for good calibration on the RBP curve.}
 \usage{
-addGoodCalib(obj, plot.values = TRUE, show.info = TRUE, col = rgb(0, 0, 0,
-  0.25), border = NA, ...)
+addGoodCalib(obj, plot.values = TRUE, show.info = TRUE,
+  col = grDevices::rgb(0, 0, 0, 0.25), border = NA, ...)
 }
 \arguments{
 \item{obj}{[\code{\link{RBPObj}}]\cr

@@ -4,7 +4,7 @@ load_all()
 # should later become function in mlr?
 # do some add* calls with sensible default, rest can be done by user with later add* calls
 myplot1 = function(pred, ...) {
-  p = getProbabilities(pred)
+  p = getPredictionProbabilities(pred)
   obj = makeRBPObj(p, pred$data$truth, positive = pred$desc$positive)
   plotRBPCurve(obj, ...)
   return(invisible(obj))

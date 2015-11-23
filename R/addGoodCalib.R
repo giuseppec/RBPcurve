@@ -18,7 +18,7 @@
 #' @template ret_invnull
 #' @export
 addGoodCalib = function(obj, plot.values = TRUE, show.info = TRUE,
-  col = rgb(0, 0, 0, 0.25), border = NA, ...) {
+  col = grDevices::rgb(0, 0, 0, 0.25), border = NA, ...) {
 
   # Check arguments
   assertClass(obj, "RBPObj")
