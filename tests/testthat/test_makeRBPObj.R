@@ -6,7 +6,7 @@ test_that("makeRBPObj", {
 
   for (j in 1:length(ylist)) {
     if (is.factor(ylist[[j]])) {
-      pos = sonar.task$task.desc$class.levels
+      pos = pid.task$task.desc$class.levels
       for (i in pos) {
         obj = makeRBPObj(pred, ylist[[j]], i)
         expect_equal(obj$positive, i)
