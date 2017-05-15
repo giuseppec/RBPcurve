@@ -40,4 +40,3 @@ grouping the predicted probabilities via deciles yielding 10 groups.
 The equally collored areas belong to a specific group. When each of the two  
 equally collored areas are similar, the model is well calibrated.
 }
-

@@ -35,4 +35,3 @@ probabilities (conditional on the two groups that are determined by the target v
 The PEV measure can be visually obtained by the RBP curve, namely by the difference of the
 two areas that are Highlighted with \code{addPEV}.
 }
-

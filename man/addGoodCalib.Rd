@@ -38,4 +38,3 @@ The integral of the RBP curve is a measure for good calibration.
 If the sum of the two integrals (below and above the RBP curve) is close to 0,
 good calibration is satisfied and the prevalence is close to the average predicted probabilities.
 }
-

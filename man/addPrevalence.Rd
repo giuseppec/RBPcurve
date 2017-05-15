@@ -30,4 +30,3 @@ The prevalence is the proportion of a population having a specific condition.
 In binary classification, the condition refers to whether the target variable has the value
 \code{1}, that is, whether the target variable corresponds to the positive class.
 }
-

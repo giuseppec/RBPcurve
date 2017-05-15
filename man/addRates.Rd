@@ -39,4 +39,3 @@ and the false positive rate (FPR) can be visually assessed by the RBP curve
 by the intersection of the RBP curve with the horizontal lines at 
 \code{-thresh} and \code{1 - thresh}, respectively.
 }
-

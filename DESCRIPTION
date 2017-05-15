@@ -1,8 +1,8 @@
 Package: RBPcurve
 Type: Package
 Title: The Residual-Based Predictiveness Curve
-Version: 1.1
-Date: 2015-11-23
+Version: 1.2
+Date: 2017-05-15
 Author: Giuseppe Casalicchio, Bernd Bischl
 URL: https://github.com/giuseppec/RBPcurve
 BugReports: https://github.com/giuseppec/RBPcurve/issues
@@ -12,13 +12,13 @@ Description: The RBP curve is a visual tool to assess the
 License: GPL-3
 Depends:
     R (>= 3.0.2),
-    mlr (>= 2.9)
+    mlr (>= 2.11)
 Imports:
-    BBmisc (>= 1.9),
-    checkmate (>= 1.6.2),
+    BBmisc (>= 1.11),
+    checkmate (>= 1.8.2),
     shape,
     TeachingDemos
 Suggests:
     testthat,
     mlbench
-RoxygenNote: 5.0.1
+RoxygenNote: 6.0.1

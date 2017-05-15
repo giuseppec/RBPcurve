@@ -36,19 +36,19 @@
 #' @examples
 #' 
 #' # Download data
-#' mydata = read.csv("http://www.ats.ucla.edu/stat/data/binary.csv")
+#' mydata = getTaskData(pid.task)
 #' head(mydata)
 #' 
 #' # Build logit model and plot RBP curve
-#' mylogit <- glm(admit ~ ., data = mydata, family = "binomial")
-#' y = mydata$admit
+#' mylogit <- glm(diabetes ~ ., data = mydata, family = "binomial")
+#' y = mydata$diabetes
 #' pred1 = predict(mylogit, type="response")
 #' obj1 = makeRBPObj(pred1, y)
 #' plotRBPCurve(obj1, cond.axis = TRUE, type = "b")
 #' 
 #' \dontrun{
 #' # Build logit model using mlr and plot RBP curve
-#' task = makeClassifTask(data = mydata, target = "admit")
+#' task = pid.task
 #' lrn = makeLearner("classif.logreg", predict.type = "prob")
 #' tr = train(lrn, task)
 #' pred2 = getPredictionProbabilities(predict(tr, task))
@@ -56,7 +56,7 @@
 #' plotRBPCurve(obj2, cond.axis = TRUE, type = "b", col = 2)
 #' }
 
-plotRBPCurve = function (obj,
+plotRBPCurve = function(obj,
   main = "RBP Curve",
   xlab = "Cumulative Percentage",
   ylab = "Estimated Residuals",
